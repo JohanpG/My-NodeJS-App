@@ -10,10 +10,11 @@ var url = require('url');
 var StringDecoder = require('string_decoder').StringDecoder;
 var config= require('./config');
 var fs = require('fs');
-var _data = require('./lib/data');
+//var _data = require('./lib/data');
 var handlers = require('./lib/handlers');
+var helpers = require('./lib/helpers');
 //Test
-// @TODO Delete this
+/*// @TODO Delete this
 _data.create('test', 'newFile',{'foo': 'bar'},function(err){
   console.log('this was the create error: ',err);
 });
@@ -28,6 +29,7 @@ _data.update('test', 'newFile',{'fizz': 'buzz'},function(err){
 _data.delete('test', 'newFile',function(err){
   console.log('this was the delete error: ',err);
 });
+*/
 // Instanciate the HTTP srver
 var httpServer =http.createServer(function(req,res){
 unifiedServer(req,res);
@@ -61,7 +63,7 @@ var unifiedServer= function(req,res){
   //get eh query string as an object
   var queryStringObject= parsedUrl.query;
   //Get http method
-  var method= req.method.toUpperCase();
+  var method= req.method.toLowerCase();
   //Get headers as an object
   var headers= req.headers;
   //Get payloads
@@ -82,7 +84,7 @@ var unifiedServer= function(req,res){
       'queryStringObject':queryStringObject,
       'method' : method,
       'headers':headers,
-      'payload':buffer
+      'payload':helpers.parseJsonToObject(buffer)
     };
     //Route the request to the handler specified in the router
     chosenHandler(data,function(statusCode,payload){
