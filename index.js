@@ -14,6 +14,9 @@ var fs = require('fs');
 var handlers = require('./lib/handlers');
 var helpers = require('./lib/helpers');
 //Test
+helpers.sendTwilioSms('4158375309','Hello',function(err){
+  console.log('this was the error',err);
+});
 /*// @TODO Delete this
 _data.create('test', 'newFile',{'foo': 'bar'},function(err){
   console.log('this was the create error: ',err);
