@@ -13,7 +13,7 @@ app.init = function(){
   // start hte server
   server.init();
   // start eh workers
-  //workers.init();
+  workers.init();
 };
 
 
